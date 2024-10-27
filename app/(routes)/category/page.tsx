@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function CategoryPage() {
   return (
-    <div>CategoryPage</div>
+    <div className='bg-mycolor-200'>CategoryPage</div>
   )
 }

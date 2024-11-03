@@ -7,6 +7,7 @@ import NavMenu from './NavMenu'
 import { Button } from '@/components/ui/button'
 import MobileMenu from './MobileMenu'
 import CartMenu from './Cart'
+import Link from 'next/link'
 
 const pacifiko = Pacifico({ subsets: ["cyrillic"], weight: "400" })
 
@@ -26,9 +27,13 @@ export default function Header() {
         </div>
         <div className="flex flex-row items-center space-x-3">
           <ModeToggle />
+          <Link  href="/fav">
           <Heart />
+          </Link>
           <CartMenu />
+          <Link href="/login">
           <UserIcon />
+          </Link>
           <MobileMenu />
         </div>
       </div>

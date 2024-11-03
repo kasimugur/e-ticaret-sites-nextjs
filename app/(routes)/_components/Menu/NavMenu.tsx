@@ -16,10 +16,25 @@ import { categories } from '@/constans'
 
 
 export default function NavMenu() {
+  
   return (
     <div className='flex justify-center items-center py-2 bg-mycolor-300'>
       <NavigationMenu>
         <NavigationMenuList>
+        <NavigationMenuItem>
+            <Link href="/" legacyBehavior passHref>
+              <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bgheader`}>
+                Home
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/about" legacyBehavior passHref>
+              <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bgheader`}>
+                About us
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuTrigger className='bgheader'>Recent Product</NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -70,9 +85,9 @@ export default function NavMenu() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
+            <Link href="/contact" legacyBehavior passHref>
               <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bgheader`}>
-                Documentation
+                Contact
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

@@ -6,6 +6,9 @@
   @apply  bg-white dark:bg-mycolor-100;
 }
 .bgheader{
-  @apply bg-mycolor-300 hover:bg-mycolor-300 
+  @apply bg-mycolor-300 hover:bg-mycolor-300/10 
   dark:bg-mycolor-300 dark:text-black  dark:hover:bg-mycolor-300  !important;
+}
+.activeHeader{
+  @apply bg-mycolor-200/50 rounded hover:bg-mycolor-200/25 dark:hover:bg-mycolor-200/25 dark:bg-mycolor-200/50 duration-300 transition  !important;
 }

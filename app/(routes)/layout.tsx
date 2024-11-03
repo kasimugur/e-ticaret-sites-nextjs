@@ -10,7 +10,9 @@ export default function RoutesLayout({children}:RoutesLayoutProps) {
     <>
     <Header />
 
+    <div className="min-h-screen">
     {children}
+    </div>
 
     <Footer />
     </>

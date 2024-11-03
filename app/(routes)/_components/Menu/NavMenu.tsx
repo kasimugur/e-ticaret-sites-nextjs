@@ -13,24 +13,26 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { categories } from '@/constans'
+import { usePathname } from 'next/navigation'
 
-
+ 
 export default function NavMenu() {
-  
+  const pathName = usePathname();
+  console.log(pathName)
   return (
     <div className='flex justify-center items-center py-2 bg-mycolor-300'>
       <NavigationMenu>
         <NavigationMenuList>
         <NavigationMenuItem>
             <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bgheader`}>
+              <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bgheader ${pathName === "/" ? "activeHeader" : ""}`}>
                 Home
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Link href="/about" legacyBehavior passHref>
-              <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bgheader`}>
+              <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bgheader ${pathName === "/about" ? "activeHeader" : ""}`}>
                 About us
               </NavigationMenuLink>
             </Link>
@@ -69,7 +71,7 @@ export default function NavMenu() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className='bgheader'>Categories</NavigationMenuTrigger>
+            <NavigationMenuTrigger  className={` bgheader ${pathName.startsWith('/shop') ? "activeHeader" : ""}`}>Categories</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {categories.map((component) => (
@@ -86,7 +88,7 @@ export default function NavMenu() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Link href="/contact" legacyBehavior passHref>
-              <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bgheader`}>
+              <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bgheader ${pathName === "/contact" ? "activeHeader" : ""}`}>
                 Contact
               </NavigationMenuLink>
             </Link>

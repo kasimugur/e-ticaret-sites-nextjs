@@ -1,4 +1,5 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import { Pacifico } from 'next/font/google'
 import { Input } from '@/components/ui/input'
 import { Heart, Search,  UserIcon } from 'lucide-react'
@@ -8,10 +9,20 @@ import { Button } from '@/components/ui/button'
 import MobileMenu from './MobileMenu'
 import CartMenu from './Cart'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const pacifiko = Pacifico({ subsets: ["cyrillic"], weight: "400" })
 
 export default function Header() {
+  const router = useRouter();
+  const [query, setQuery] = useState('')
+  
+  const handleSearch = () => {
+    if(query.trim()) {
+      router.push(`/search?query=${encodeURIComponent(query)}`)
+    }
+  }
+
   return (
     <div className='mx-auto bgone shadow-md'>
       <div className="container flex flex-row items-center justify-between p-5">
@@ -20,8 +31,8 @@ export default function Header() {
             ECommerce</h2>
         </div>
         <div className="hidden md:flex relative md:min-w-96 lg:w-1/2">
-          <Input className='border-2 w-full' />
-          <Button variant="link" className='absolute right-1'>
+          <Input onChange={(e)=> setQuery(e.target.value) } className='border-2 w-full' />
+          <Button onClick={handleSearch} variant="link" className='absolute right-1'>
             <Search />
           </Button>
         </div>

@@ -12,13 +12,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MenuIcon } from "lucide-react";
+import Hero from "../_components/Hero";
+import ProductList from "../_components/Product/ProductList";
 
 export default function Home() {
   const [position, setPosition] = React.useState("bottom")
   return (
   <>
   <div>
-    home
+    <Hero />
+    <ProductList />
 
   </div>
   </>

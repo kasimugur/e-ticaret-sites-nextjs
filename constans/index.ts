@@ -30,4 +30,29 @@ const categories: { title: string; href: string; description: string }[] = [
     description: "Özel indirimli ürünler ve kampanyalar.",
   },
 ];
-export {categories}
+
+ export interface SSsType{
+  id:string;
+  title:string;
+  description:string;
+ }
+
+ const sssList:SSsType[] = [
+  {
+    id: "item-1",
+    title: "title 1 sss",
+    description: "Erkekler için gömlek, pantolon, tişört ve daha fazlası.",
+  },  {
+    id: "item-2",
+    title: "title 2 sss",
+    description: "Erkekler için gömlek, pantolon, tişört ve daha fazlası.",
+  },  {
+    id: "item-3",
+    title: "title 3 sss",
+    description: "Erkekler için gömlek, pantolon, tişört ve daha fazlası.",
+  }
+ ]
+export {
+  categories,
+  sssList
+}

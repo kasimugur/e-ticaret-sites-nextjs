@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card"
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
+import ProductModal from './ProductModal'
 
 export interface ProductItemProps {
   product: ProductType
@@ -36,7 +37,7 @@ export default function ProductItem({ product }: ProductItemProps) {
         </div>
       </CardContent>
       <CardFooter className='flex justify-between'>
-    <Button variant={'destructive'} className='rounded' >Detail</Button>
+    <ProductModal product={product} />
     <Button variant={'default'} className='rounded' >Add To Cart</Button>
       </CardFooter>
     </Card>

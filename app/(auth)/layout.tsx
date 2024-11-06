@@ -9,7 +9,7 @@ interface AuthLayoutProps {
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <>
-      <div className='flex flex-row items-center justify-center'>
+      <div className='flex flex-row items-center justify-center space-x-14'>
         <div className="hidden h-screen md:block lg:w-2/5">
           <Image
             alt='logo'

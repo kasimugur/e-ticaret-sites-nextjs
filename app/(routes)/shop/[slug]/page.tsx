@@ -1,12 +1,24 @@
+import { categories } from '@/constans';
 import React from 'react'
 
-interface ShopDetailPageProps{
+interface ShopDetailPageProps {
   params: {
-    slug:string;
+    slug: string;
   }
 }
+export async function generateMetadata({ params }: ShopDetailPageProps) {
+  const project = categories.find(product => product.href.includes(params.slug))
 
-export default function ShopDetailPage({params}:ShopDetailPageProps) {
+  if (!project) {
+    return <div>project not found</div>
+  }
+
+  return {
+    title: project.title,
+    description: project.description,
+  }
+}
+export default function ShopDetailPage({ params }: ShopDetailPageProps) {
   return (
     <div>
       {params.slug}

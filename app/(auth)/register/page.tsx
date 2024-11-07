@@ -56,7 +56,7 @@ export default function RegisterPage() {
       email: "",
       birthDate: "",
       startDate: "",
-      gender: "",
+      gender: "Female",
       jobType: []
     }
   })

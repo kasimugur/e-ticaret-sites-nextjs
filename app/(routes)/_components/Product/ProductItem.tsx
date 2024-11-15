@@ -13,7 +13,7 @@ import {
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import ProductModal from './ProductModal'
-import { toast, useToast } from '@/hooks/use-toast'
+import { useToast } from '@/hooks/use-toast'
 
 export interface ProductItemProps {
   product: ProductType

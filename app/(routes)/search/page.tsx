@@ -1,14 +1,28 @@
-"use client"
-import { useSearchParams } from 'next/navigation'
-import React from 'react'
+"use client";
 
-export default function SearchPage() {
+import React from 'react';
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react'
 
-  const  searchParams = useSearchParams();
 
+
+function Search() {
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query") || "No query provided";
   return (
-    <div>
-      {searchParams.get("query")}
-    </div>
+    <>
+    <input placeholder="Search..." />
+    {query}
+    </>
   )
 }
+export default function SearchPage() {
+  
+  return (
+    <Suspense>
+      <Search />
+    </Suspense>
+  );
+}
+
+

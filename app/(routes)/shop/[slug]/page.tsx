@@ -2,26 +2,35 @@ import { categories } from '@/constans';
 import React from 'react'
 
 interface ShopDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  }
+  }>;
 }
+
 export async function generateMetadata({ params }: ShopDetailPageProps) {
-  const project = categories.find(product => product.href.includes(params.slug))
-
+  const resolvedParams = await params;
+  const project = categories.find(product =>
+    product.href.includes(resolvedParams.slug)
+  );
   if (!project) {
-    return <div>project not found</div>
+    return {
+      title: "Project Not Found",
+      description: "The requested project could not be found.",
+    };
   }
-
   return {
     title: project.title,
     description: project.description,
-  }
+  };
 }
-export default function ShopDetailPage({ params }: ShopDetailPageProps) {
+
+
+export default async function ShopDetailPage({ params }: ShopDetailPageProps) {
+  const resolvedParams = await params;
   return (
     <div>
-      {params.slug}
+      {resolvedParams.slug}
     </div>
-  )
+  );
 }
+

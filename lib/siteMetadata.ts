@@ -8,8 +8,8 @@ export const siteMetadata = {
   siteUrl: 'https://www.efegorkemumit.com', // your website URL
   siteLogo: '/logo.png',
   socialBanner: '/socialmedia.jpg', // add social banner in the public folder
-  email: 'efegorkemumit@gmail.com', 
-  github: 'https://github.com/efegorkemumit',
+  email: 'kasiugur7@gmail.com', 
+  github: 'https://github.com/kasimugur',
   youtube: 'https://youtube.com/@efegorkemumit',
   linkedin: 'https://www.linkedin.com/in/efe-g%C3%B6rkem-%C3%BCmit-a084009b/',
   locale: 'en-US',

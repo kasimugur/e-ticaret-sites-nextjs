@@ -14,7 +14,7 @@ export default function CartMenu() {
       </SheetTrigger>
       <SheetContent>
         <div className='flex flex-col mt-8 space-y-6 '>
-          Empty Cart
+          
         </div>
       </SheetContent>
     </Sheet>

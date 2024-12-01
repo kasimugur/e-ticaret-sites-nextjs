@@ -14,11 +14,15 @@ type Product = {
 interface RoutesContextType {
   productFav?: Product[];
   setProductFav: React.Dispatch<React.SetStateAction<Product[]>>;
+  addProduct?: Product[];
+  setAddProduct: React.Dispatch<React.SetStateAction<Product[]>>;
+  count: number
+  setCount: React.Dispatch<React.SetStateAction<number>>
 }
 const RoutesContext = createContext<RoutesContextType | undefined>(undefined);
 
 export const RoutesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  
+  const [count, setCount] = useState<number>(1)
   const [productFav, setProductFav] = useState<Product[]>([])
   const [addProduct, setAddProduct] = useState<Product[]>([])
 
@@ -26,7 +30,9 @@ export const RoutesProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     productFav,
     setProductFav,
     addProduct,
-    setAddProduct
+    setAddProduct,
+    count,
+    setCount,
   }
   return (
     <RoutesContext.Provider value={data} >
@@ -37,7 +43,7 @@ export const RoutesProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 export const useRoutesContext = () => {
   const context = useContext(RoutesContext);
   if (!context) {
-      throw new Error("useRoutesContext must be used within a RoutesProvider");
+    throw new Error("useRoutesContext must be used within a RoutesProvider");
   }
   return context;
 };

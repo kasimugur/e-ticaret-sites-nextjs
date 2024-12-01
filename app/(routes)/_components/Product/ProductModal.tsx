@@ -67,7 +67,7 @@ export default function ProductModal({ product }: ProductModalprops) {
 
         </div>
         <DialogFooter className='flex '>
-          <Button type="submit">Add To Card</Button>
+          <Button  type="submit">Add To Card</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

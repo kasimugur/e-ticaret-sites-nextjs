@@ -24,16 +24,40 @@ export interface ProductItemProps {
 }
 
 export default function ProductItem({ product }: ProductItemProps) {
-  const { setProductFav } = useRoutesContext()
+  const { setProductFav, addProduct, setAddProduct, count, setCount } = useRoutesContext()
   const [isOpen, setIsOpen] = useState(false)
   const { toast } = useToast()
+
+
   const handleClick = (id: number) => {
+    setCount(count + 1)
+    let addProduct = count
     toast({
       title: `${product.title} added`,
       description: `${product.description}`,
       variant: "success"
     })
-    console.log(id)
+    if (product.id === id) {
+      toast({
+        title: `${product.title} added`,
+        description: `${product.description}`,
+        variant: "success"
+      })
+      const existingAdd = localStorage.getItem("AddProducts");
+      const addProducts = existingAdd ? JSON.parse(existingAdd) : [];
+      const productWithOpenState = {
+        ...product,
+        isOpen: !isOpen,
+        add_Product: addProduct
+        // isOpen durumunu tersine çevir
+      };
+      // silme işlemi eklenecek
+      const updatedAddProducts = addProducts.filter((item: ProductType) => item.id !== id);
+      updatedAddProducts.push(productWithOpenState);
+      localStorage.setItem("AddProducts", JSON.stringify(updatedAddProducts))
+      setAddProduct(updatedAddProducts)
+
+    }
 
   }
 
@@ -62,8 +86,10 @@ export default function ProductItem({ product }: ProductItemProps) {
   useEffect(() => {
     const existingFavs = localStorage.getItem("favProducts");
     const favProducts = existingFavs ? JSON.parse(existingFavs) : [];
-
-    setProductFav(favProducts)
+    const existingAdd = localStorage.getItem("AddProducts");
+    const addProducts = existingAdd ? JSON.parse(existingAdd) : [];
+    setAddProduct(addProducts);
+    setProductFav(favProducts);
   }, [])
 
 
@@ -76,7 +102,7 @@ export default function ProductItem({ product }: ProductItemProps) {
             <CardDescription>{product.description} </CardDescription>
           </div>
           <Link onClick={() => handleClickFav(product.id)} href="/fav">
-          <Heart color={isOpen ? 'red' : 'white'} />
+            <Heart color={isOpen ? 'red' : 'white'} />
           </Link>
         </div>
       </CardHeader>

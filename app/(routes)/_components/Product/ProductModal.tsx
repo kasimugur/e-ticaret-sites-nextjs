@@ -12,6 +12,7 @@ import { ProductType } from '@/constans'
 interface ProductModalprops {
   product: ProductType
 }
+
 export default function ProductModal({ product }: ProductModalprops) {
 
   const [quantity, setQuantity] = useState(1);
@@ -67,7 +68,7 @@ export default function ProductModal({ product }: ProductModalprops) {
 
         </div>
         <DialogFooter className='flex '>
-          <Button  type="submit">Add To Card</Button>
+          <Button type="submit">Add To Card</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

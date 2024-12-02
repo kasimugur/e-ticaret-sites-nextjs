@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import {
   Sheet,
@@ -7,19 +8,23 @@ import {
 import { ShoppingBagIcon } from 'lucide-react'
 import { products } from '@/constans'
 import ProductAddCart from '../Product/ProductAddCart'
+import { useRoutesContext } from '@/app/context/RoutesContext'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 export default function CartMenu() {
+const {addProduct} = useRoutesContext()
   return (
     <Sheet>
       <SheetTrigger>
         <ShoppingBagIcon />
       </SheetTrigger>
-      <SheetContent>
-        <div className='flex flex-col mt-8 space-y-6 '>
+      <SheetContent className=''>
+          <ScrollArea className='flex flex-col mt-6 gap-1  h-full rounded-md  '>
+
         {
-        products.filter(e => e.id === 3).map(product => <ProductAddCart product={product} />)
-      }
-        </div>
+          addProduct?.map(product => <ProductAddCart key={product.id} product={product} />)
+        }
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   )

@@ -24,14 +24,14 @@ export interface ProductItemProps {
 }
 
 export default function ProductItem({ product }: ProductItemProps) {
-  const { setProductFav, addProduct, setAddProduct, count, setCount } = useRoutesContext()
+  const { setProductFav,  setAddProduct, count, setCount } = useRoutesContext()
   const [isOpen, setIsOpen] = useState(false)
   const { toast } = useToast()
 
 
   const handleClick = (id: number) => {
     setCount(count + 1)
-    let addProduct = count
+    
     toast({
       title: `${product.title} added`,
       description: `${product.description}`,
@@ -48,7 +48,7 @@ export default function ProductItem({ product }: ProductItemProps) {
       const productWithOpenState = {
         ...product,
         isOpen: !isOpen,
-        add_Product: addProduct
+        add_Product: count
         // isOpen durumunu tersine çevir
       };
       // silme işlemi eklenecek
@@ -56,9 +56,7 @@ export default function ProductItem({ product }: ProductItemProps) {
       updatedAddProducts.push(productWithOpenState);
       localStorage.setItem("AddProducts", JSON.stringify(updatedAddProducts))
       setAddProduct(updatedAddProducts)
-
     }
-
   }
 
   const handleClickFav = (id: number) => {
@@ -120,7 +118,7 @@ export default function ProductItem({ product }: ProductItemProps) {
         </div>
       </CardContent>
       <CardFooter className='flex justify-between'>
-        <ProductModal product={product} />
+        <ProductModal  product={product} />
         <Button onClick={() => handleClick(product.id)} variant={'default'} className='rounded' >Add To Cart</Button>
       </CardFooter>
     </Card>

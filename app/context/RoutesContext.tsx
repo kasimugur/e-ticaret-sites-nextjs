@@ -1,14 +1,14 @@
 'use client'
 
 import React, { createContext, ReactNode, useContext, useState } from "react"
-type Product = {
+export type Product = {
   id: number,
   title: string,
   price: number,
   mrp: number,
   description: string,
   image: string,
-  isOpen: boolean
+  isOpen?: boolean
 };
 
 interface RoutesContextType {

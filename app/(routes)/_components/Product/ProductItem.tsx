@@ -20,44 +20,63 @@ import { useRoutesContext } from '@/app/context/RoutesContext'
 
 export interface ProductItemProps {
   product: ProductType
-
 }
 
 export default function ProductItem({ product }: ProductItemProps) {
-  const { setProductFav,  setAddProduct, count, setCount } = useRoutesContext()
+  const { setProductFav, setAddProduct, count, setCount } = useRoutesContext()
   const [isOpen, setIsOpen] = useState(false)
   const { toast } = useToast()
 
+  const getProductsFromLocalStorage = () => {
+    const existingAdd = localStorage.getItem("AddProducts");
+    return existingAdd ? JSON.parse(existingAdd) : [];
+  };
 
-  const handleClick = (id: number) => {
-    setCount(count + 1)
-    
+  
+
+  const saveProductsToLocalStorage = (product: ProductType[]) => {
+    localStorage.setItem("AddProducts", JSON.stringify(product));
+  };
+
+  const handleClickAddProduct = (id: number) => {
+    // Mevcut ürün sayısını artır
+    setCount(count + 1);
+
+    // Kullanıcıya bildirim göster
     toast({
       title: `${product.title} added`,
       description: `${product.description}`,
       variant: "success"
     })
+
+    // Eğer tıklanan ürün mevcut ürünse
     if (product.id === id) {
-      toast({
-        title: `${product.title} added`,
-        description: `${product.description}`,
-        variant: "success"
-      })
-      const existingAdd = localStorage.getItem("AddProducts");
-      const addProducts = existingAdd ? JSON.parse(existingAdd) : [];
-      const productWithOpenState = {
-        ...product,
-        isOpen: !isOpen,
-        add_Product: count
-        // isOpen durumunu tersine çevir
-      };
-      // silme işlemi eklenecek
-      const updatedAddProducts = addProducts.filter((item: ProductType) => item.id !== id);
-      updatedAddProducts.push(productWithOpenState);
-      localStorage.setItem("AddProducts", JSON.stringify(updatedAddProducts))
-      setAddProduct(updatedAddProducts)
+      // Local storage'dan mevcut ürünleri al
+      const addProducts = getProductsFromLocalStorage();
+
+      // Ürünün mevcut sayısını kontrol et
+      const existingProductIndex = addProducts.findIndex((item: ProductType) => item.id === id);
+
+      if (existingProductIndex > -1) {
+        // Ürün zaten sepette varsa, sayısını artır
+        addProducts[existingProductIndex].add_Product += 1;
+      } else {
+        // Ürün sepette yoksa, yeni ürün ekle
+        const productWithOpenState = {
+          ...product,
+          isOpen: !isOpen,
+          add_Product: 1 // İlk ekleme için 1 olarak ayarla
+        };
+        addProducts.push(productWithOpenState);
+      }
+
+      // Güncellenmiş ürün listesini local storage'a kaydet
+      saveProductsToLocalStorage(addProducts);
+      setAddProduct(addProducts);
     }
-  }
+  };
+
+  
 
   const handleClickFav = (id: number) => {
 
@@ -118,8 +137,8 @@ export default function ProductItem({ product }: ProductItemProps) {
         </div>
       </CardContent>
       <CardFooter className='flex justify-between'>
-        <ProductModal  product={product} />
-        <Button onClick={() => handleClick(product.id)} variant={'default'} className='rounded' >Add To Cart</Button>
+        <ProductModal product={product} />
+        <Button onClick={() => handleClickAddProduct(product.id)} variant={'default'} className='rounded' >Add To Cart</Button>
       </CardFooter>
     </Card>
   )

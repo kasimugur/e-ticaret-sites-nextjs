@@ -80,6 +80,8 @@ export interface ProductType{
   mrp: number;
   description: string;
   image: string;
+  isOpen?:boolean;
+  add_Product?:number
 };
 
 const products: ProductType[] = [

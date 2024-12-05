@@ -6,7 +6,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { ShoppingBagIcon } from 'lucide-react'
-import { products } from '@/constans'
 import ProductAddCart from '../Product/ProductAddCart'
 import { useRoutesContext } from '@/app/context/RoutesContext'
 import { ScrollArea } from '@/components/ui/scroll-area'

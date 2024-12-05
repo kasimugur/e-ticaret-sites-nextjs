@@ -8,7 +8,8 @@ export type Product = {
   mrp: number,
   description: string,
   image: string,
-  isOpen?: boolean
+  isOpen?: boolean,
+  add_Product?:number
 };
 
 interface RoutesContextType {
@@ -18,6 +19,7 @@ interface RoutesContextType {
   setAddProduct: React.Dispatch<React.SetStateAction<Product[]>>;
   count: number
   setCount: React.Dispatch<React.SetStateAction<number>>
+
 }
 const RoutesContext = createContext<RoutesContextType | undefined>(undefined);
 
@@ -26,6 +28,8 @@ export const RoutesProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [productFav, setProductFav] = useState<Product[]>([])
   const [addProduct, setAddProduct] = useState<Product[]>([])
 
+
+  
   const data = {
     productFav,
     setProductFav,
@@ -33,6 +37,7 @@ export const RoutesProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     setAddProduct,
     count,
     setCount,
+    
   }
   return (
     <RoutesContext.Provider value={data} >

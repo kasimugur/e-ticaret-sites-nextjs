@@ -6,50 +6,34 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useRoutesContext } from '@/app/context/RoutesContext';
 import { SquareXIcon } from 'lucide-react';
-import { number } from 'zod';
 interface ProductAddType {
   product: ProductType
 }
 export default function ProductAddCart({ product }: ProductAddType) {
-  const { count, setCount, setAddProduct, addProduct } = useRoutesContext()
-  const [addCount, setAddCount] = useState<number[]>([])
+  const { saveProductsToLocalStorage, getProductsFromLocalStorage, deleteProudctCart } = useRoutesContext()
   const [productCounts, setProductCounts] = useState<{ [key: number]: number }>({})
 
 
-  const getProductsFromLocalStorage = (): ProductType[] => {
-    const existingAdd = localStorage.getItem("AddProducts");
-    return existingAdd ? JSON.parse(existingAdd) : [];
-  };
-  
-  const saveProductsToLocalStorage = (product: ProductType[]) => {
-    localStorage.setItem("AddProducts", JSON.stringify(product));
-  };
-
-  const deleteProudctCart = (id: number) => {
-    const deltedProduct = addProduct?.filter(prd => prd.id !== id)
-    saveProductsToLocalStorage(deltedProduct as ProductType[])
-    setAddProduct(deltedProduct as ProductType[])
-  }
-
 
   const loadProductsFromLocalStorage = () => {
-    const storedProducts = getProductsFromLocalStorage(); // Local storage'dan ürünleri al
+    const storedProducts: ProductType[] = getProductsFromLocalStorage()
+    const counts: { [key: number]: number } = {}
 
-    const counts: { [key: number]: number } = {};
-
-    storedProducts.forEach((product) => {
-      counts[product.id] = product.add_Product; // Her ürünün ID'sine göre adetini al
-    });
-    setProductCounts(counts); // State'i güncelle
+    storedProducts.forEach((product: ProductType) => {
+      if (product.add_Product !== undefined) counts[product.id] = product.add_Product
+    })
+    
+    setProductCounts(counts)
+    return storedProducts;
   };
 
 
   const handleIncrement = (id: number) => {
     if (product.id === id) {
-      const addProducts = getProductsFromLocalStorage();
+      const addProducts: ProductType[] = getProductsFromLocalStorage();
       const existingProductIndex = addProducts.findIndex((item: ProductType) => item.id === id);
 
-      if (existingProductIndex > -1) {
+      if (existingProductIndex > -1 &&  addProducts[existingProductIndex].add_Product !== undefined) {
         addProducts[existingProductIndex].add_Product += 1;
         setProductCounts(prevCounts => ({
           ...prevCounts,
@@ -63,12 +47,12 @@ export default function ProductAddCart({ product }: ProductAddType) {
   }
   const handleDecrement = (id: number) => {
     if (product.id === id) {
-      const addProducts = getProductsFromLocalStorage();
+      const addProducts: ProductType[] = getProductsFromLocalStorage();
 
       const existingProductIndex = addProducts.findIndex((item: ProductType) => item.id === id);
 
-      if (existingProductIndex > -1) {
-        if (addProducts[existingProductIndex].add_Product  > 0) {
+      if (existingProductIndex > -1 &&  addProducts[existingProductIndex].add_Product !== undefined) {
+        if (addProducts[existingProductIndex].add_Product > 0) {
           addProducts[existingProductIndex].add_Product -= 1;
 
           setProductCounts(prevCounts => ({
@@ -79,12 +63,9 @@ export default function ProductAddCart({ product }: ProductAddType) {
           saveProductsToLocalStorage(addProducts)
         }
 
-        if(addProducts[existingProductIndex].add_Product < 1) {
-          deleteProudctCart(id); // Sepetten silme işlemi
-          console.log("-----------------",id)
+        if (addProducts[existingProductIndex].add_Product < 1) {
+          deleteProudctCart(id);
         }
-        console.log(addProducts);
-        
       }
     }
   }

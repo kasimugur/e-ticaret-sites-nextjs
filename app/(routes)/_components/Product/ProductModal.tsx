@@ -9,12 +9,13 @@ import {
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { ProductType } from '@/constans'
+import { useRoutesContext } from '@/app/context/RoutesContext'
 interface ProductModalprops {
   product: ProductType
 }
 
 export default function ProductModal({ product }: ProductModalprops) {
-
+  const { getProductsFromLocalStorage, saveProductsToLocalStorage, setAddProduct } = useRoutesContext()
   const [quantity, setQuantity] = useState(1);
 
   const handleInc = () => {
@@ -26,9 +27,28 @@ export default function ProductModal({ product }: ProductModalprops) {
     setQuantity(quantity + 1)
 
   }
+  const handleAddProducts = (id: number) => {
+    if (product.id === id) {
+      const addProductsLocal: ProductType[] = getProductsFromLocalStorage()
+      const addProductControl = addProductsLocal.findIndex(item => item.id === id)
+      if (addProductControl <= -1) {
+        addProductsLocal.push({...product, isOpen:false, add_Product: quantity})
+      }
+      else {
+        if(addProductsLocal[addProductControl].add_Product === undefined) {
+        console.log("addProduct undifiend")  
+        } else {
+          addProductsLocal[addProductControl].add_Product += quantity
+        }
+      }
+      setQuantity(1)
+      saveProductsToLocalStorage(addProductsLocal)
+      setAddProduct(addProductsLocal)
+    }
+  }
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger >
         <Button variant={'destructive'} className='rounded' >Detail</Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[900px]'>
@@ -68,7 +88,7 @@ export default function ProductModal({ product }: ProductModalprops) {
 
         </div>
         <DialogFooter className='flex '>
-          <Button type="submit">Add To Card</Button>
+          <Button onClick={() => handleAddProducts(product.id)} type="submit">Add To Card</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -40,7 +40,6 @@ export default function ProductAddCart({ product }: ProductAddType) {
           [id]: prevCounts[id] + 1
         }));
         saveProductsToLocalStorage(addProducts);
-        // setAddProduct(addProducts);
       }
 
     }

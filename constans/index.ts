@@ -58,30 +58,30 @@ export interface CarouselType {
   image: string;
 }
 
-const CarouselList:CarouselType[]=[
+const CarouselList: CarouselType[] = [
   {
-    id:1,
-    image:"/slider/5.jpg"
+    id: 1,
+    image: "/slider/5.jpg"
   },
   {
-    id:2,
-    image:"/slider/6.jpg"
+    id: 2,
+    image: "/slider/6.jpg"
   },
   {
-    id:3,
-    image:"/slider/7.jpg"
+    id: 3,
+    image: "/slider/7.jpg"
   },
 ]
 
-export interface ProductType{
+export interface ProductType {
   id: number;
   title: string;
   price: number;
   mrp: number;
   description: string;
   image: string;
-  isOpen?:boolean;
-  add_Product?:number
+  isOpen?: boolean;
+  add_Product?: number
 };
 
 const products: ProductType[] = [

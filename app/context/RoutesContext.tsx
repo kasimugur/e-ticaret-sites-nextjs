@@ -54,6 +54,7 @@ export const RoutesProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     saveProductsToLocalStorage(deltedProduct as ProductType[])
     setAddProduct(deltedProduct as ProductType[])
   }
+  
 
   const data = {
     productFav,
